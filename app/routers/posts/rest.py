@@ -23,14 +23,14 @@ def show_post(id: int, db: Session = Depends(get_db)):
     return result
 
 
-@router.post("", response_model=schemas.Post)
+@router.post("", response_model=schemas.Post, status_code=201)
 def create_post(data: schemas.PostCreate, db: Session = Depends(get_db)):
     result = controller.create_post(db, data)
 
     return result
 
 
-@router.put("/{id}")
+@router.put("/{id}", response_model=schemas.Post)
 def update_post(id: int, data: schemas.PostUpdate, db: Session = Depends(get_db)):
     data.id = id
     
@@ -39,7 +39,7 @@ def update_post(id: int, data: schemas.PostUpdate, db: Session = Depends(get_db)
     return result
 
 
-@router.delete("/{id}")
+@router.delete("/{id}", response_model=schemas.Post)
 def delete_post(id: int, db: Session = Depends(get_db)):
     result = controller.delete_post(db, id)
 
